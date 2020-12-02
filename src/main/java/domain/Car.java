@@ -1,18 +1,26 @@
 package domain;
 
+import java.util.Objects;
+
 public class Car {
+    private static final int MIN_NAME_LENGTH = 0;
+    private static final int MAX_NAME_LENGTH = 5;
+
     private final String name;
     private int position = 0;
 
     public Car(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("자동차 이름은 null이면 안됩니다.");
-        }
-        if (name.trim().length() <= 0 || name.trim().length() > 5) {
-            throw new IllegalArgumentException("자동차 이름이 1~5글자여야 합니다.");
-        }
+        validate(name);
         this.name = name;
     }
 
-    // 추가 기능 구현
+    private void validate(final String name) {
+        if (Objects.isNull(name) || isValidLength(name)) {
+            throw new IllegalArgumentException(String.format("부적절한 이름입니다.: %s", name));
+        }
+    }
+
+    private boolean isValidLength(final String name) {
+        return name.trim().length() <= MIN_NAME_LENGTH || name.trim().length() > MAX_NAME_LENGTH;
+    }
 }
