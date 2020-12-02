@@ -12,4 +12,28 @@ class CarTest {
         assertThat(new Car("asdf"))
             .isEqualToComparingFieldByField(new Car("asdf"));
     }
+
+    @DisplayName("자동차 이름이 공백인지 확인")
+    @Test
+    void constructorTest2() {
+        assertThatThrownBy(() -> new Car(" "))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("자동차 이름이 1~5글자여야 합니다.");
+    }
+
+    @DisplayName("자동차 이름이 1~5글자인지 확인")
+    @Test
+    void constructorTest3() {
+        assertThatThrownBy(() -> new Car("asdfgh"))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("자동차 이름이 1~5글자여야 합니다.");
+    }
+
+    @DisplayName("자동차 이름이 null이 아닌지 확인")
+    @Test
+    void constructorTest4() {
+        assertThatThrownBy(() -> new Car(null))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("자동차 이름은 null이면 안됩니다.");
+    }
 }
